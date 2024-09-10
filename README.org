@@ -1,6 +1,6 @@
 * CYD Template
 
-[[assets/cyd.png][cyd]]
+[[assets/cyd.png]]
 
 ** About
 This is a template for the ESP32, also known as CYD (Cheap Yellow Display). It includes a configuration file and a sketch to display the X and Y coordinates when you press on the screen.
