@@ -1,0 +1,123 @@
+* CYD Template
+
+[[assets/cyd.png][cyd]]
+
+** About
+This is a template for the ESP32, also known as CYD (Cheap Yellow Display). It includes a configuration file and a sketch to display the X and Y coordinates when you press on the screen.
+
+This template uses the LovyanGFX library.
+[[https://github.com/lovyan03/LovyanGFX][LovyanGFX Github Repo]]
+
+Most of the information is in Japanese, so you can use ChatGPT to translate if you need more details.
+
+If you would like to preview your work, you can use a simulator. This way, you won't need to upload the code to the CYD.
+
+** Simulator
+
+[[assets/simulator.png]]
+
+Lovyan03 has added a simulator. To use this simulator, you will need either VSCode or Code for Linux.
+
+*Note*: The simulator runs using files with the .cpp extension. This means that code written in .ino files will not work directly.
+
+#+begin_src bash
+sudo pacman -S code
+#+end_src
+
+*** VSCode And Code Extensions
+
+[[https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools][C/C++ Extension]]
+[[https://marketplace.visualstudio.com/items?itemName=platformio.platformio-ide][PlatformIO IDE]]
+
+*** Dependencies For Linux
+
+Install SDL2:
+
+#+begin_src bash
+sudo pacman -S sdl2
+#+end_src
+
+** Create A New Project
+
+Using PlatformIO, create a new project.
+
+** Add LovyanGFX Library
+
+Using PlatformIO, install the LovyanGFX library in your project.
+
+** Add Project Configuration
+
+Create a new project with the following settings:
+
+Name: Simulator (You can change this name if you prefer)
+Board: *Espressif ESP32 Dev*
+Framework: *Arduino*
+
+After creating a new project, you will have a file with the named *platformio.ini*. Copy the following block of code into
+it.
+
+#+begin_src bash
+; PlatformIO Project Configuration File
+;
+;   Build options: build flags, source filter
+;   Upload options: custom upload port, speed and extra flags
+;   Library options: dependencies, extra library storages
+;   Advanced options: extra scripting
+;
+; Please visit documentation for the other options and examples
+; https://docs.platformio.org/page/projectconf.html
+
+[env:latest_stable]
+platform = native
+build_flags = 
+	-I/usr/include/SDL2
+	-L/usr/lib
+	-lSDL2
+lib_deps = 
+	lovyan03/LovyanGFX@^1.1.16
+	bblanchon/ArduinoJson@^7.1.0
+#+end_src
+
+** Main.cpp
+
+Copy this code into your main.cpp file:
+
+#+begin_src bash
+// If you write this, you can use drawBmpFile / drawJpgFile / drawPngFile
+// #include <stdio.h>
+// If you write this, you can use drawBmpUrl / drawJpgUrl / drawPngUrl ( for Windows )
+// #include <windows.h>
+// #include <winhttp.h>
+// #pragma comment (lib, "winhttp.lib")
+
+
+#define LGFX_USE_V1
+#include <LovyanGFX.hpp>
+#include <LGFX_AUTODETECT.hpp>
+
+#define SCREEN_WIDTH 240
+#define SCREEN_HEIGHT 320
+
+LGFX lcd ( SCREEN_WIDTH, SCREEN_HEIGHT);
+
+
+
+void setup(){
+  lcd.init();
+  lcd.setTextSize(2);
+  lcd.print("Simultor");
+}
+
+int xTouch, yTouch;
+
+void loop(){
+
+}
+#+end_src
+
+** Build
+To build you can use *CTRL + ALT + B*
+
+** Upload
+
+To upload *CTRL + ALT + U*
