@@ -115,6 +115,43 @@ void loop(){
 }
 #+end_src
 
+** Create SDL Config File
+
+In the same directory as the main.cpp file.
+
+#+begin_src bash
+touch sdl_main.cpp
+#+end_src
+
+Paste the next block of code:
+
+#+begin_src bash
+#include <lgfx/v1/platforms/sdl/Panel_sdl.hpp>
+#if defined ( SDL_h_ )
+
+void setup(void);
+void loop(void);
+
+__attribute__((weak))
+int user_func(bool* running)
+{
+  setup();
+  do
+  {
+    loop();
+  } while (*running);
+  return 0;
+}
+
+int main(int, char**)
+{
+  return lgfx::Panel_sdl::main(user_func);
+}
+
+#endif
+
+#+end_src
+
 ** Build
 To build you can use *CTRL + ALT + B*
 
