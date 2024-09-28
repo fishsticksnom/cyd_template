@@ -105,7 +105,7 @@ LGFX lcd ( SCREEN_WIDTH, SCREEN_HEIGHT);
 void setup(){
   lcd.init();
   lcd.setTextSize(2);
-  lcd.print("Simultor");
+  lcd.print("Simulator");
 }
 
 int xTouch, yTouch;
